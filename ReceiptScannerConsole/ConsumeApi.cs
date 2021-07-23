@@ -12,6 +12,31 @@ namespace ReceiptScannerConsole
     {
         public const string apiUrl = "https://interview-task-api.mca.dev/qr-scanner-codes/alpha-qr-gFpwhsQ8fkY1";
 
+        Receipt receiptA = new Receipt();
+
+        public void displayData(string fName, decimal fPrice, string fDesc, int fWeight)
+        {
+            Console.WriteLine("..." + fName);
+            Console.WriteLine("   Price: $" + fPrice);
+            string str = fDesc.Substring(0, 10);
+            Console.WriteLine("   " + str + "...");
+            if (fWeight.Equals(0))
+                Console.WriteLine("   Weight: " + "N/A");
+            else
+                Console.WriteLine("   Weight: " + fWeight);
+        }
+        public decimal calcPrice(decimal fPriceCalc, List<Receipt> receiptsCalc)
+        {
+            decimal calc = 0;
+            foreach (Receipt rec in receiptsCalc)
+                calc += rec.price;
+            return calc;
+        }
+        public void sortAlphabeticly(List<Receipt> receiptsSort)
+        {
+            receiptsSort.Sort((u1, u2) => u1.name.CompareTo(u2.name));
+        }
+
         public void GetAllData() // Get all data from external api
         {
             WebClient client = new WebClient();
@@ -22,9 +47,6 @@ namespace ReceiptScannerConsole
 
             List<Receipt> domestic = new List<Receipt>();
             List<Receipt> imported = new List<Receipt>();
-
-            decimal domcalc = 0;
-            decimal impcalc = 0;
 
             foreach (Receipt receipt in receipts)
             {
@@ -57,36 +79,20 @@ namespace ReceiptScannerConsole
             }
 
             Console.WriteLine(".Domestic");
-            domestic.Sort((u1, u2) => u1.name.CompareTo(u2.name));
+            sortAlphabeticly(domestic);
             foreach (Receipt recd in domestic)
             {
-                Console.WriteLine("..." + recd.name);
-                Console.WriteLine(" Price: $" + recd.price);
-                domcalc += recd.price;
-                string str = recd.description.Substring(0, 10);
-                Console.WriteLine("   " + str + "...");
-                if (recd.weight.Equals(0))
-                    Console.WriteLine("   Weight: " + "N/A");
-                else
-                    Console.WriteLine("   Weight: " + recd.weight);
+                displayData(recd.name, recd.price, recd.description, recd.weight);
             }
             Console.WriteLine(".Imported");
-            imported.Sort((u1, u2) => u1.name.CompareTo(u2.name));
+            sortAlphabeticly(imported);
             foreach (Receipt reci in imported)
             {
-                Console.WriteLine("..." + reci.name);
-                Console.WriteLine(" Price: $" + reci.price);
-                impcalc += reci.price;
-                string str = reci.description.Substring(0, 10);
-                Console.WriteLine("   " + str + "...");
-                if (reci.weight.Equals(0))
-                    Console.WriteLine("   Weight: " + "N/A");
-                else
-                    Console.WriteLine("   Weight: " + reci.weight);
+                displayData(reci.name, reci.price, reci.description, reci.weight);
             }
 
-            Console.WriteLine("Domestic cost: $" + domcalc);
-            Console.WriteLine("Imported cost: $" + impcalc);
+            Console.WriteLine("Domestic cost: $" + calcPrice(receiptA.price, domestic));
+            Console.WriteLine("Domestic cost: $" + calcPrice(receiptA.price, imported));
             Console.WriteLine("Domestic count: " + domestic.Count);
             Console.WriteLine("Imported count: " + imported.Count);
 
