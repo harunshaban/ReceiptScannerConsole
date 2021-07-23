@@ -6,7 +6,8 @@ namespace ReceiptScannerConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ConsumeApi objsync = new ConsumeApi();
+            objsync.GetAllData();
         }
     }
 }
