@@ -57,6 +57,7 @@ namespace ReceiptScannerConsole
             }
 
             Console.WriteLine(".Domestic");
+            domestic.Sort((u1, u2) => u1.name.CompareTo(u2.name));
             foreach (Receipt recd in domestic)
             {
                 Console.WriteLine("..." + recd.name);
@@ -70,6 +71,7 @@ namespace ReceiptScannerConsole
                     Console.WriteLine("   Weight: " + recd.weight);
             }
             Console.WriteLine(".Imported");
+            imported.Sort((u1, u2) => u1.name.CompareTo(u2.name));
             foreach (Receipt reci in imported)
             {
                 Console.WriteLine("..." + reci.name);
