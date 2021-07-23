@@ -23,6 +23,9 @@ namespace ReceiptScannerConsole
             List<Receipt> domestic = new List<Receipt>();
             List<Receipt> imported = new List<Receipt>();
 
+            decimal domcalc = 0;
+            decimal impcalc = 0;
+
             foreach (Receipt receipt in receipts)
             {
                 if (receipt.domestic == true)
@@ -58,6 +61,7 @@ namespace ReceiptScannerConsole
             {
                 Console.WriteLine("..." + recd.name);
                 Console.WriteLine(" Price: $" + recd.price);
+                domcalc += recd.price;
                 string str = recd.description.Substring(0, 10);
                 Console.WriteLine("   " + str + "...");
                 if (recd.weight.Equals(0))
@@ -70,6 +74,7 @@ namespace ReceiptScannerConsole
             {
                 Console.WriteLine("..." + reci.name);
                 Console.WriteLine(" Price: $" + reci.price);
+                impcalc += reci.price;
                 string str = reci.description.Substring(0, 10);
                 Console.WriteLine("   " + str + "...");
                 if (reci.weight.Equals(0))
@@ -77,6 +82,11 @@ namespace ReceiptScannerConsole
                 else
                     Console.WriteLine("   Weight: " + reci.weight);
             }
+
+            Console.WriteLine("Domestic cost: $" + domcalc);
+            Console.WriteLine("Imported cost: $" + impcalc);
+            Console.WriteLine("Domestic count: " + domestic.Count);
+            Console.WriteLine("Imported count: " + imported.Count);
 
             /* Works fine but displays data in Json format with all brackets
             using (var client = new WebClient()) // create instance for web client
