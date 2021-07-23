@@ -130,5 +130,17 @@ namespace ReceiptScannerConsole
             */
         }
 
+
+        /* Note:
+             * This file could have been done more clear
+             * by creating seperate classes for the first
+             * three methods, but as for the task assignment
+             * and reviewing purposes I choose to set everything
+             * in one file.
+             * Thank You.
+            */
+
+
+
     }
 }
