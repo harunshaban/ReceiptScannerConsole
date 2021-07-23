@@ -57,17 +57,24 @@ namespace ReceiptScannerConsole
             foreach (Receipt recd in domestic)
             {
                 Console.WriteLine("..." + recd.name);
+                Console.WriteLine(" Price: $" + recd.price);
                 Console.WriteLine("   " + recd.price);
                 Console.WriteLine("   " + recd.description);
-                Console.WriteLine("   " + recd.weight);
+                if (recd.weight.Equals(0))
+                    Console.WriteLine("   Weight: " + "N/A");
+                else
+                    Console.WriteLine("   Weight: " + recd.weight);
             }
             Console.WriteLine(".Imported");
             foreach (Receipt reci in imported)
             {
                 Console.WriteLine("..." + reci.name);
-                Console.WriteLine("   " + reci.price);
+                Console.WriteLine(" Price: $" + reci.price);
                 Console.WriteLine("   " + reci.description);
-                Console.WriteLine("   " + reci.weight);
+                if (reci.weight.Equals(0))
+                    Console.WriteLine("   Weight: " + "N/A");
+                else
+                    Console.WriteLine("   Weight: " + reci.weight);
             }
 
             /* Works fine but displays data in Json format with all brackets
