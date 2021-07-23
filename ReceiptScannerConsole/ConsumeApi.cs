@@ -58,8 +58,8 @@ namespace ReceiptScannerConsole
             {
                 Console.WriteLine("..." + recd.name);
                 Console.WriteLine(" Price: $" + recd.price);
-                Console.WriteLine("   " + recd.price);
-                Console.WriteLine("   " + recd.description);
+                string str = recd.description.Substring(0, 10);
+                Console.WriteLine("   " + str + "...");
                 if (recd.weight.Equals(0))
                     Console.WriteLine("   Weight: " + "N/A");
                 else
@@ -70,7 +70,8 @@ namespace ReceiptScannerConsole
             {
                 Console.WriteLine("..." + reci.name);
                 Console.WriteLine(" Price: $" + reci.price);
-                Console.WriteLine("   " + reci.description);
+                string str = reci.description.Substring(0, 10);
+                Console.WriteLine("   " + str + "...");
                 if (reci.weight.Equals(0))
                     Console.WriteLine("   Weight: " + "N/A");
                 else
