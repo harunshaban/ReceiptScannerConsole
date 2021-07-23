@@ -10,7 +10,7 @@ namespace ReceiptScannerConsole
 {
     class ConsumeApi
     {
-        public const string apiUrl = "x";
+        public const string apiUrl = "https://interview-task-api.mca.dev/qr-scanner-codes/alpha-qr-gFpwhsQ8fkY1";
 
         public void GetAllData() // Get all data from external api
         {
@@ -20,13 +20,54 @@ namespace ReceiptScannerConsole
             string json = client.DownloadString(apiUrl);
             var receipts = JsonConvert.DeserializeObject<List<Receipt>>(json);
 
+            List<Receipt> domestic = new List<Receipt>();
+            List<Receipt> imported = new List<Receipt>();
+
             foreach (Receipt receipt in receipts)
             {
-                Console.WriteLine("..." + receipt.name);
-                Console.WriteLine("   " + receipt.price);
-                Console.WriteLine("   " + receipt.description);
-                Console.WriteLine("   " + receipt.weight);
-                Console.WriteLine("   " + receipt.domestic);
+                if (receipt.domestic == true)
+                {
+                    domestic.Add(
+                        new Receipt
+                        {
+                            name = receipt.name,
+                            domestic = receipt.domestic,
+                            price = receipt.price,
+                            weight = receipt.weight,
+                            description = receipt.description
+                        }
+                        );
+                }
+                if (receipt.domestic == false)
+                {
+                    imported.Add(
+                        new Receipt
+                        {
+                            name = receipt.name,
+                            domestic = receipt.domestic,
+                            price = receipt.price,
+                            weight = receipt.weight,
+                            description = receipt.description
+                        }
+                        );
+                }
+            }
+
+            Console.WriteLine(".Domestic");
+            foreach (Receipt recd in domestic)
+            {
+                Console.WriteLine("..." + recd.name);
+                Console.WriteLine("   " + recd.price);
+                Console.WriteLine("   " + recd.description);
+                Console.WriteLine("   " + recd.weight);
+            }
+            Console.WriteLine(".Imported");
+            foreach (Receipt reci in imported)
+            {
+                Console.WriteLine("..." + reci.name);
+                Console.WriteLine("   " + reci.price);
+                Console.WriteLine("   " + reci.description);
+                Console.WriteLine("   " + reci.weight);
             }
 
             /* Works fine but displays data in Json format with all brackets
