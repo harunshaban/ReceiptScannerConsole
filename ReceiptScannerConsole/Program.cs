@@ -13,8 +13,8 @@ namespace ReceiptScannerConsole
     {
         static void Main(string[] args)
         {
-            ConsumeApi objsync = new ConsumeApi();
-            objsync.GetAllData();
+            DataManipulation obj = new DataManipulation();
+            obj.GetAllDataOrganized();
         }
     }
 }
